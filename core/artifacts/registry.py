@@ -71,40 +71,72 @@ def get_artifact_blocks(entries):
 
             if len(entry) != 1:
                 raise ValueError(
-                    f"Observable entry must have single key: {entry}"
+                    f"Artifact entry must have single key: {entry}"
                 )
 
             type_name, nested = next(iter(entry.items()))
 
+            # ----------------------------------
+            # Case 2a: None
+            # ----------------------------------
             if nested is None:
                 instance_cfgs = [("", None)]
 
+            # ----------------------------------
+            # Case 2b: list → simple instances
+            # ----------------------------------
             elif isinstance(nested, list):
                 instance_cfgs = [(name, None) for name in nested]
 
+            # ----------------------------------
+            # Case 2c: dict → base + instances
+            # ----------------------------------
             elif isinstance(nested, dict):
 
-                instance_names = [
-                    k for k, v in nested.items()
-                    if isinstance(v, dict)
-                ]
+                # Split ONLY top-level keys
+                if all(isinstance(v, dict) for v in nested.values()):
+                    # ALL are instances
+                    instance_entries = nested
+                    base_cfg = {}
+                else:
+                    # treat entire dict as config
+                    instance_entries = {}
+                    base_cfg = nested
 
-                config_entries = {
+                base_cfg = {
                     k: v for k, v in nested.items()
                     if not isinstance(v, dict)
                 }
 
-                if instance_names and config_entries:
-                    raise ValueError(
-                        "Mixed instance/config entry not allowed. "
-                        "Artifact must define either instances or config."
-                    )
+                # ----------------------------------
+                # Instances exist → merge base + instance
+                # ----------------------------------
+                if instance_entries:
 
-                if instance_names:
-                    instance_cfgs = [
-                        (name, nested[name])
-                        for name in instance_names
-                    ]
+                    instance_cfgs = []
+
+                    for name, inst_cfg in instance_entries.items():
+
+                        if inst_cfg is not None and not isinstance(inst_cfg, dict):
+                            raise TypeError(
+                                f"Instance '{name}' must be dict or None"
+                            )
+
+                        merged = {}
+
+                        # base config
+                        if base_cfg:
+                            merged.update(base_cfg)
+
+                        # instance overrides
+                        if inst_cfg:
+                            merged.update(inst_cfg)
+
+                        instance_cfgs.append((name, merged))
+
+                # ----------------------------------
+                # No instances → pure config
+                # ----------------------------------
                 else:
                     instance_cfgs = [("", nested)]
 

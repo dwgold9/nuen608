@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 import numpy as np
 import pandas as pd
 import yaml
@@ -146,6 +146,11 @@ class Tally:
         output_path = Path(output_dir) / f"{self.name}.nc"
         ds.to_netcdf(output_path)
 
+        if isinstance(self, MeshTally):
+
+            meta_path = Path(output_dir) / f"{self.name}_mesh.yaml"
+            self.export_mesh_metadata(meta_path)
+
         self._post_export(output_path, ds)
 
 
@@ -287,14 +292,47 @@ class DerivedTally(Tally):
 class MeshTally(OpenMCTally):
     """
     Base class for a mesh tally.
+    Supports multiple mesh filters.
     """
+
     @property
     def mesh_metadata(self):
-        return {}
-    
+        return getattr(self, "_mesh_metadata", [])
+
     def export_mesh_metadata(self, path):
+
+        meta = self.mesh_metadata
+
+        if not meta:
+            return
+
         with open(path, 'w') as file:
-            yaml.safe_dump(self.mesh_metadata, file)
+            yaml.safe_dump(_to_native(meta), file)
+
+
+def _to_native(obj):
+    """
+    Recursively convert numpy types to native Python types
+    for safe YAML serialization.
+    """
+
+    if isinstance(obj, dict):
+        return {k: _to_native(v) for k, v in obj.items()}
+
+    elif isinstance(obj, list):
+        return [_to_native(v) for v in obj]
+
+    elif isinstance(obj, tuple):
+        return tuple(_to_native(v) for v in obj)
+
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+
+    elif isinstance(obj, np.generic):
+        return obj.item()
+
+    else:
+        return obj
         
 
 def register_tally(type_name):

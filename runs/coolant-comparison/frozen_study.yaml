@@ -1,0 +1,44 @@
+name: coolant-comparison
+model: reference
+plot:
+  - plot1:
+      basis: 'xz'
+      width: [275, 275]
+      pixels: 100000
+      color_by: 'material'
+  - plot2:
+      basis: 'xy'
+      width: [275, 275]
+      pixels: 1000000
+      color_by: 'material'
+
+parameters:
+  particles: 10000
+  active_height: 200
+  active_diameter: 225
+  fuel_enrich: 19.75
+  num_drums: 6
+  
+ensemble:
+  mat_cool: [molten-salt, h2]
+
+tallies:
+  - keff
+  - openmc-tally:
+      fission:
+        score: fission
+        filters:
+          - energy: 
+              bins: SCALE-252
+  
+metrics:
+  - study-aggregate:
+        measurement: keff
+
+artifacts:
+  - spectrum-plot:
+      spectrum: 
+        openmc-tally:fission
+      ylabel: Fission per unit lethargy (a.u)
+      yscale: linear
+      outfile: fission-spectra

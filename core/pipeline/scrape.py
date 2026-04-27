@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 
 def load_statepoint(model, run_dir):
     batches = model.settings.batches

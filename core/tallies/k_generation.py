@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 import numpy as np
 import xarray as xr
 from .registry import register_tally, register_tally_set, StatePointTally

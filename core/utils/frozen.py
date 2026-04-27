@@ -81,12 +81,20 @@ def handle_resume_with_revisioning(source_yaml: Path, runs_root: Path):
     # -----------------------------
     # Enforce non-parametric identity
     # -----------------------------
+    print(frozen_plot)
     src_copy = dict(src)
-    src_copy["parametric"] = frozen_parametric
-    src_copy["ensemble"] = frozen_ensemble
-    src_copy["plot"] = frozen_plot
-    src_copy["metrics"] = frozen_metrics
-    src_copy["artifacts"] = frozen_artifacts
+    if frozen_parametric:
+        src_copy["parametric"] = frozen_parametric
+    if frozen_ensemble:
+        src_copy["ensemble"] = frozen_ensemble
+    if frozen_plot:
+        src_copy["plot"] = frozen_plot
+    if frozen_metrics:
+        src_copy["metrics"] = frozen_metrics
+    if frozen_artifacts:
+        src_copy["artifacts"] = frozen_artifacts
+
+    print(src_copy)
 
     if src_copy != frozen:
         raise RuntimeError(

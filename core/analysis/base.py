@@ -24,7 +24,7 @@ class AnalysisBlock:
         bound = {}
 
         for param, default in self.arguments.items():
-
+            
             if param in self.cfg:
                 key = self.cfg[param]
             elif default is not None:

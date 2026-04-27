@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 
 
 # ---------------------------------------------------------

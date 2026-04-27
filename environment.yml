@@ -1,0 +1,31 @@
+name: nuen608-project
+channels:
+ - conda-forge
+
+dependencies:
+ # --- core ---
+ - python=3.11
+ - pip
+ - clangxx_osx-arm64
+ - clang_osx-arm64
+ - pyyaml
+ - xarray
+ - seaborn
+ - openmc
+
+ # --- numerical ---
+ - numpy
+ - scipy
+ - matplotlib
+ - h5py
+ - pandas
+ # --- prerequsites ---
+ - llvm
+ - cmake
+ - hdf5
+ - llvm-openmp
+ - libpng
+
+variables:
+  OPENMC_CROSS_SECTIONS: 
+    /Users/davisgolden/Documents/research/data/cross_sections/endfb-viii.0-hdf5/cross_sections.xml

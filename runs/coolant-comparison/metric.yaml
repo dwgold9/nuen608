@@ -1,0 +1,9 @@
+study-aggregate:
+  case001:
+    member001:
+      parameters: {}
+      value: 1.184075175331917
+    member002:
+      parameters: {}
+      value: 1.2131273014766772
+    parameters: {}

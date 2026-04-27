@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 import numpy as np
 from .registry import register_tally, MeshTally
 from core.utils.energy_bins import resolve_energy_bins

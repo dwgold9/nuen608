@@ -1,0 +1,97 @@
+name: modeling
+model: reference
+plot:
+  - plot1:
+      basis: 'xz'
+      width: [275, 275]
+      pixels: 100000
+      color_by: 'material'
+  - plot2:
+      basis: 'xy'
+      width: [275, 275]
+      pixels: 1000000
+      color_by: 'material'
+
+parameters:
+  particles: 10000
+  active_height: 200
+  active_diameter: 225
+  fuel_enrich: 19.75
+  num_drums: 6
+
+tallies:
+  - keff
+  - openmc-tally:
+      fission:
+        score: fission
+        filters:
+          - energy: 
+              bins: SCALE-252
+
+      heating-polar:
+        score: heating
+        filters:
+          - mesh:
+              type: cylindrical
+              r_min: 0.0
+              r_max:
+                expr: active_diameter/2
+              nr: 10
+              z_min:
+                expr: -active_height/2
+              z_max:
+                expr: active_height/2
+              nz: 1
+              nphi: 10
+  
+      heating-xy:
+        score: heating
+        filters:
+          - mesh:
+              type: rectilinear
+              lower_left: 
+                - expr: -active_diameter/2
+                - expr: -active_diameter/2
+                - expr: -active_height/2
+
+              upper_right: 
+                - expr: +active_diameter/2
+                - expr: +active_diameter/2
+                - expr: +active_height/2
+
+              dimension: [1000, 1000, 1]
+
+  
+metrics:
+  - study-aggregate:
+        measurement: keff
+
+artifacts:
+  - spectrum-plot:
+      spectrum: 
+        openmc-tally:fission
+      ylabel: Fission per unit lethargy (a.u)
+      yscale: linear
+      outfile: fission-spectra
+
+  - heatmap:
+      distribution: 
+        openmc-tally:heating-polar
+      projection: polar
+      title: "Flux (polar)"
+
+  - heatmap:
+      distribution: 
+        openmc-tally:heating-xy
+      projection: xy
+      title: "Heating"
+      normalize: True
+      clabel: "a.u."
+
+
+  # - spectrum-plot:
+  #     spectrum: 
+  #       openmc-tally:flux-central
+  #     yscale: log
+  #     ylabel: Flux per unit lethargy (a.u)
+  #     outfile: flux-spectra

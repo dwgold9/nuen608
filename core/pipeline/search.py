@@ -1,5 +1,5 @@
-import openmc4d as mc
-import openmc4d.model
+import openmc as mc
+import openmc.model
 
 
 def perform_criticality_search(

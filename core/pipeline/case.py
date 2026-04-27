@@ -7,9 +7,9 @@ import itertools
 # pipeline stages
 from core import pipeline
 from core.pipeline.meta import CaseMeta, execute_member
-from archive.core.pipeline.assemble import assemble_xml
-from archive.core.pipeline.run import run_simulation
-from archive.core.pipeline.plot import plot_slice
+from core.pipeline.assemble import assemble_xml
+from core.pipeline.run import run_simulation
+from core.pipeline.plot import plot_slice
 from core.pipeline.scrape import load_statepoint
 from core.analysis.scope import MemberContext, CaseContext
 
@@ -153,7 +153,7 @@ def evaluate_case(
         params = {**case_params, **member_params}
 
         # path to executable
-        openmc_exec = params.get("openmc_exec", "openmc4d")
+        openmc_exec = params.get("openmc_exec", "openmc")
 
         # save resolved params
         with open(member_dir / "resolved_params.json", "w") as f:

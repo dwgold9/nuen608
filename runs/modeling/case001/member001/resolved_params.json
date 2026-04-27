@@ -1,0 +1,7 @@
+{
+  "particles": 10000,
+  "active_height": 200,
+  "active_diameter": 225,
+  "fuel_enrich": 19.75,
+  "num_drums": 6
+}

@@ -1,8 +1,115 @@
-# ==========================================
-# Python bytecode
-# ==========================================
+# =========================
+# Python
+# =========================
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+*.pyd
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
 
-*.DS_STORE
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# =========================
+# OpenMC / Monte Carlo Outputs
+# =========================
+# Statepoint and summary files
+statepoint.*
+summary.*
+*xml
+
+# Tally and source files
+tallies.out
+source.h5
+
+# Plot output
+*.ppm
+*.png
+*.svg
+*.pdf
+
+# Depletion / restart files
+depletion_results.h5
+openmc_simulation_n*.h5
+
+# Cross section libraries (if local)
+cross_sections.xml
+*.h5
+
+# =========================
+# Simulation Artifacts
+# =========================
+artifacts/
+results/
+outputs/
+metrics/*.csv
+metrics/*.json
+*.log
+*.out
+
+# Large data files
+*.h5
+*.vtk
+*.vti
+*.xdmf
+
+# =========================
+# LaTeX
+# =========================
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# =========================
+# macOS / Linux
+# =========================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# =========================
+# Testing / Coverage
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Misc
+# =========================
+*.bak
+*.tmp
+*.temp

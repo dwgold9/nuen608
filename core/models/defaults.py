@@ -1,29 +1,31 @@
 
 
 DEFAULTS = {
-    'N_tubes_y': 10,
-    'N_tubes_z': 10,
-    'N_tubes'
-    'num_layers': 1,
-    'velocity': 0,      ## cm/s
-    'tube_radius': 2.0, ## cm,
-    'no_tubes': False,
+    'active_height': 200,
+    'active_diameter': 225,
+    'cool_temp': 1000,        # Coolant Temperature (K)
+    'cool_pres': 7,           # Coolant Pressure (MPa)
+    'refl_thck': 20,
+    'fuel_enrich': 19.75,
+    'lat_pitch': 4.5,
+    'fuel_rad': 1.5,
+    'gap_thck': 0.01,
+    'clad_thck': 0.2,
+    'cool_rad': 10,
+    'mat_fuel': 'ura-dio',
+    'mat_gap': 'gas',
+    'mat_clad': 'zircaloy',
+    'mat_cool': 'h2',
+    'mat_cntl': 'b4c',
+    'mat_refl': 'lead',
+    'mat_drum': 'beo',
+    'drum_rad': 10,
+    'drum_rot': 180,
+    'num_drums': 6,
     'seed': 1,
     'batches': 100,
-    'inactive': 99,
-    'particles': 100000,
-    'run_mode': 'eigenvalue',
-    'square_grid': False,
-    'thck_deplete': 3.0,
-    'thck_fissile': 2.0,
-    'thck_modrat': 20.0,
-    'leu_enrich': 2.5,
-    'dep_enrich': 0.1,
-    'mat_fissile': 'fuel-rich',
-    'mat_deplete': 'fuel-depleted',
-    'mat_modrat': 'd2o',
-    'mat_modrat_move': 'd2o-move',
-    'pitch': 6
+    'inactive': 30,
+    'particles': 1000,
 }
 
 def resolve(config, model_default={}):

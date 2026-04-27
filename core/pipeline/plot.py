@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -20,7 +20,7 @@ default = {
 def plot_slice(mc_obj, case_dir, name, **plot_kwargs):
     plot_kwargs = {**plot_kwargs, **default}
     plt.figure(figsize=(6.4*2, 4.8*2))
-    axs = mc_obj.plot(openmc_exec='openmc4d', 
+    axs = mc_obj.plot(openmc_exec='openmc', 
                       **plot_kwargs)
     axs.plot()
     plt.tight_layout()

@@ -1,4 +1,4 @@
-import openmc4d as mc
+import openmc as mc
 from .registry import register_tally, OpenMCTally
 
 

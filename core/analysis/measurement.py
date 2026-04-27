@@ -1,5 +1,5 @@
 from pathlib import Path
-import openmc4d as mc
+import openmc as mc
 import xarray as xr
 
 from enum import Enum, auto
