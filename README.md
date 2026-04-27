@@ -30,15 +30,22 @@ python -m pip install -e /Users/davisgolden/Documents/research/developer/openmc4
 ## Tutorial
 
 ### Execute Simulation
->>> python simulate.py foo_study
+```
+python simulate.py foo_study
+```
 
 To overwrite:
 
->>> python simulate.py foo_study --force
+```
+python simulate.py foo_study --force
+```
 
 To resume:
 
->>> python simulate.py foo_study --resume
-
-# Post-Process
->>> python analyze.py foo_study
+```
+python simulate.py foo_study --resume
+```
+### Post-Process
+```
+python analyze.py foo_study
+```
